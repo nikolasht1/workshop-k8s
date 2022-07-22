@@ -11,9 +11,9 @@ data:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: flask-pv-claim
   labels:
-    name: mysql
+    name: flask-pv
   namespace: flask-app
 spec:
   accessModes:
@@ -44,9 +44,9 @@ spec:
         - name: DB_USERNAME
           value: devops
         - name: DB_NAME
-          value: student
+          value: mysql
         - name: DB_HOSTNAME
-          value: db
+          value: mysql
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -74,6 +74,14 @@ spec:
           port: flask
         failureThreshold: 5
         periodSeconds: 3
+      volumeMounts:
+        - name: flask-persistent-storage
+          mountPath: /flask/app
+  volumes:
+    - name: flask-persistent-storage
+      persistentVolumeClaim:
+        claimName: flask-pv-claim
+
 ---
 apiVersion: v1
 kind: Service
