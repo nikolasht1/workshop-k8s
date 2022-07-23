@@ -75,13 +75,13 @@ spec:
           path: /api/health-check/ok
           port: flask
         failureThreshold: 5
-        periodSeconds: 3
+        periodSeconds: 10
       readinessProbe:
         httpGet:
           path: /api/health-check/ok
           port: flask
         failureThreshold: 5
-        periodSeconds: 3
+        periodSeconds: 10
       volumeMounts:
         - name: flask-persistent-storage
           mountPath: /flask/app
