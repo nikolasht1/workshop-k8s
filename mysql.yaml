@@ -99,7 +99,7 @@ metadata:
   name: mysql
   labels:
     name: mysql
-  namespace: flask-apps
+  namespace: flask-app
 spec:
   serviceName: mysql
   replicas: 1
