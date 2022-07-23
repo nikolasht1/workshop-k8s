@@ -30,40 +30,33 @@ spec:
     requests:
       storage: 10Gi
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
   name: flask
   labels:
-    app: flask
+    name: flask
   namespace: flask-app
-  spec:
-    selector:
-    matchLabels: 
-      app: flask
-    strategy: 
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          app: flask
-      spec:        
-        containers:
-          - name: flask
-            image: nikolasht1/flaskapi
-            env:
-          - name: FLASK_APP
-            value: api.py
-          - name: FLASK_ENV
-            value: development
-          - name: DB_USERNAME
-            value: devops
-          - name: DB_NAME
-            value: mysql
-          - name: DB_HOSTNAME
-            value: mysql
-          - name: DB_PASSWORD
-            valueFrom:
+spec:
+  containers:
+    - name: flask
+      image: nikolasht1/flaskapi
+      imagePullPolicy: Always
+      command: ["python"]
+      args: ["-m", "flask", "run"]
+      env:
+        - name: FLASK_APP
+          value: api.py
+        - name: FLASK_ENV
+          value: development
+        - name: DB_USERNAME
+          value: devops
+        - name: DB_NAME
+          value: mysql
+        - name: DB_HOSTNAME
+          value: mysql
+        - name: DB_PASSWORD
+          valueFrom:
             secretKeyRef:
               name: mysql-secret
               key: mysql-password
