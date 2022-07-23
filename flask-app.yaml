@@ -51,6 +51,7 @@ spec:
       containers:
         - name: flask
           image: nikolasht1/flaskapi
+          imagePullPolicy: IfNotPresent
       env:
         - name: FLASK_APP
           value: api.py
