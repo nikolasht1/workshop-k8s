@@ -31,7 +31,7 @@ spec:
       storage: 20Gi
 ---
 apiVersion: v1
-kind: Deployment
+kind: Pod
 metadata:
   name: mysql
   labels:
