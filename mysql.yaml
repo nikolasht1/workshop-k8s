@@ -37,45 +37,45 @@ metadata:
   labels:
     name: mysql
   namespace: flask-app
-spec:
-  containers:
-    - name: mysql
-      image: mysql:8
-      resources:
-        requests:
-          cpu: 200m
-          memory: 512Mi
-        limits:
-          cpu: 200m
-          memory: 512Mi
-      env:
-        - name: "MYSQL_USER"
-          value: devops
-        - name: "MYSQL_PASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-password
-        - name: "MYSQL_DATABASE"
-          valueFrom:
-            configMapKeyRef:
-              name: mysql-config
-              key: mysql-db-name
-        - name: "MYSQL_ROOT_PASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-root-password
-      ports:
-        - containerPort: 3306
-          name: mysql-container
-      volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-  volumes:
-    - name: mysql-persistent-storage
-      persistentVolumeClaim: 
-        claimName: mysql-pv-claim
+  spec:
+    containers:
+      - name: mysql
+        image: mysql:8
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 200m
+            memory: 512Mi
+        env:
+          - name: "MYSQL_USER"
+            value: devops
+          - name: "MYSQL_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-password
+          - name: "MYSQL_DATABASE"
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: mysql-db-name
+          - name: "MYSQL_ROOT_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-root-password
+        ports:
+          - containerPort: 3306
+            name: mysql-container
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+    volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim: 
+          claimName: mysql-pv-claim
 ---
 apiVersion: v1
 kind: Service
