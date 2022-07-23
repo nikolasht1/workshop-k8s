@@ -37,36 +37,36 @@ metadata:
   labels:
     app: flask
   namespace: flask-app
-  spec:
-    selector:
-    matchLabels: 
-      app: flask
-    strategy: 
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          app: flask
-      spec:        
-        containers:
-          - name: flask
-            image: nikolasht1/flaskapi
-            env:
-          - name: FLASK_APP
-            value: api.py
-          - name: FLASK_ENV
-            value: development
-          - name: DB_USERNAME
-            value: devops
-          - name: DB_NAME
-            value: mysql
-          - name: DB_HOSTNAME
-            value: mysql
-          - name: DB_PASSWORD
-            valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-password
+spec:
+  selector:
+  matchLabels: 
+    app: flask
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:        
+      containers:
+        - name: flask
+          image: nikolasht1/flaskapi
+      env:
+        - name: FLASK_APP
+          value: api.py
+        - name: FLASK_ENV
+          value: development
+        - name: DB_USERNAME
+          value: devops
+        - name: DB_NAME
+          value: mysql
+        - name: DB_HOSTNAME
+          value: mysql
+        - name: DB_PASSWORD
+          valueFrom:
+          secretKeyRef:
+            name: mysql-secret
+            key: mysql-password
       resources:
         limits:
           memory: "256Mi"
