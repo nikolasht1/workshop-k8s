@@ -7,6 +7,14 @@ metadata:
 data:
   mysql-password: "ZGV2b3BzCg=="
   mysql-root-password: "bXktc2VjcmV0LXB3Cg=="
+--- 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-config
+  namespace: flask-app
+data:
+  flask-name: flask-app
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
