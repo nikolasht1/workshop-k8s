@@ -84,14 +84,14 @@ metadata:
   labels: 
     name: mysql
   namespace: flask-app
-  spec:
-    selector:
+spec:
+  selector:
+    name: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: mysql-container
       name: mysql
-    ports:
-      - protocol: TCP
-        port: 3306
-        targetPort: mysql-container
-        name: mysql
 ---
 apiVersion: apps/v1
 kind: StatefulSet
