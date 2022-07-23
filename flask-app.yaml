@@ -40,7 +40,7 @@ metadata:
 spec:
   containers:
     - name: flask-app
-      image: niolasht1/flaskapi
+      image: nikolasht1/flaskapi
       imagePullPolicy: Always
       command: ["python"]
       args: ["-m", "flask", "run"]
