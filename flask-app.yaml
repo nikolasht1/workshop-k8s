@@ -14,7 +14,7 @@ metadata:
   name: flask-config
   namespace: flask-app
 data:
-  flask-name: flask-app
+  flask-name: flask
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -33,13 +33,13 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: flask-app
+  name: flask
   labels:
-    name: flask-app
+    name: flask
   namespace: flask-app
 spec:
   containers:
-    - name: flask-app
+    - name: flask
       image: nikolasht1/flaskapi
       imagePullPolicy: Always
       command: ["python"]
@@ -94,11 +94,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-app
+  name: flask
   namespace: flask-app
 spec:
   selector:
-    name: flask-app
+    name: flask
   ports:
     - protocol: TCP
       port: 5000
