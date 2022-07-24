@@ -64,9 +64,9 @@ spec:
             value: mysql
           - name: DB_PASSWORD
             valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-password
+              secretKeyRef:
+                name: mysql-secret
+                key: mysql-password
         resources:
           limits:
             memory: "256Mi"
