@@ -38,61 +38,60 @@ metadata:
     app: flask
   namespace: flask-app
 spec:
+  replicas: 1
   selector:
-  matchLabels: 
-    app: flask
-  strategy: 
-    type: Recreate
+    matchLabels: 
+      app: flask
   template:
     metadata:
       labels:
         app: flask
     spec:        
       containers:
-        - name: flask
-          image: nikolasht1/flaskapi
-          imagePullPolicy: IfNotPresent
-      env:
-        - name: FLASK_APP
-          value: api.py
-        - name: FLASK_ENV
-          value: development
-        - name: DB_USERNAME
-          value: devops
-        - name: DB_NAME
-          value: mysql
-        - name: DB_HOSTNAME
-          value: mysql
-        - name: DB_PASSWORD
-          valueFrom:
-          secretKeyRef:
-            name: mysql-secret
-            key: mysql-password
-      resources:
-        limits:
-          memory: "256Mi"
-          cpu: "300m"
-        requests:
-          memory: "256Mi"
-          cpu: "200m"
-      ports:
-        - containerPort: 5000
-          name: flask
-      startupProbe:
-        httpGet:
-          path: /api/health-check/ok
-          port: flask
-        failureThreshold: 5
-        periodSeconds: 10
-      readinessProbe:
-        httpGet:
-          path: /api/health-check/ok
-          port: flask
-        failureThreshold: 5
-        periodSeconds: 10
-      volumeMounts:
-        - name: flask-persistent-storage
-          mountPath: /flask/app
+      - name: flask
+        image: nikolasht1/flaskapi
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: FLASK_APP
+            value: api.py
+          - name: FLASK_ENV
+            value: development
+          - name: DB_USERNAME
+            value: devops
+          - name: DB_NAME
+            value: mysql
+          - name: DB_HOSTNAME
+            value: mysql
+          - name: DB_PASSWORD
+            valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-password
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "300m"
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+        ports:
+          - containerPort: 5000
+            name: flask
+        startupProbe:
+          httpGet:
+            path: /api/health-check/ok
+            port: flask
+          failureThreshold: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health-check/ok
+            port: flask
+          failureThreshold: 5
+          periodSeconds: 10
+        volumeMounts:
+          - name: flask-persistent-storage
+            mountPath: /flask/app
   volumes:
     - name: flask-persistent-storage
       persistentVolumeClaim:
