@@ -92,10 +92,10 @@ spec:
         volumeMounts:
           - name: flask-persistent-storage
             mountPath: /flask/app
-  volumes:
-    - name: flask-persistent-storage
-      persistentVolumeClaim:
-        claimName: flask-pv-claim
+    volumes:
+      - name: flask-persistent-storage
+        persistentVolumeClaim:
+          claimName: flask-pv-claim
 
 ---
 apiVersion: v1
